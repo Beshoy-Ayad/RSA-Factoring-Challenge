@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import sys
+
+def find_factors(n):
+  factor = 2
+  while factor * factor <= n:
+    if n % factor == 0:
+      return factor, n // factor
+    else:
+      factor += 1
+  return None
+
+def main():
+  if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    sys.exit(1)
+  with open(sys.argv[1], "r") as f:
+    for line in f:
+      n = int(line)
+      factors = find_factors(n)
+      if factors:
+        p, q = factors
+        print(f"{n}={p}*{q}")
+      else:
+        print(f"{n}=prime")
+
+if __name__ == "__main__":
+  main()
+
