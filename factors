@@ -1,28 +1,39 @@
 #!/usr/bin/python3
+
 import sys
 
-def find_factors(n):
-  factor = 2
-  while factor * factor <= n:
-    if n % factor == 0:
-      return factor, n // factor
-    else:
-      factor += 1
-  return None
+def factors(n):
+  """
+  Factor a number into a product of two smaller numbers.
+
+  Args:
+    n: The number to factor.
+
+  Returns:
+    A string in the format "n=p*q", where p and q are the two factors.
+  """
+
+  for i in range(2, n):
+    if n % i == 0:
+      p = n // i
+      return f"{n}={p}*{i}"
+  return f"{n}=1*{n}"
 
 def main():
-  if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit(1)
+  """
+  Read a file containing numbers to factor, and print the factorizations.
+
+  Args:
+    None
+
+  Returns:
+    None
+  """
+
   with open(sys.argv[1], "r") as f:
     for line in f:
-      n = int(line)
-      factors = find_factors(n)
-      if factors:
-        p, q = factors
-        print(f"{n}={p}*{q}")
-      else:
-        print(f"{n}=prime")
+      number = int(line.strip())
+      print(factors(number))
 
 if __name__ == "__main__":
   main()
